@@ -19,6 +19,4 @@ spec:
         ports:
         - name: http
           containerPort: 3000
-        env:
-        - name: FOO
-          value: "bar-baz"
+
