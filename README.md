@@ -1,5 +1,5 @@
 # Kargo Advanced Example
-
+.
 This is a GitOps repository of an Kargo example that showcases advanced Kargo
 techniques and features. This example will create multiple Argo CD Applications
 and Kargo Stages with a pipeline to progress both Git and image changes through

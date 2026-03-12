@@ -38,7 +38,7 @@ spec:
     spec:
       steps:
       - task:
-          name: promote
+          name: promote-approve
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
