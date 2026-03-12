@@ -53,7 +53,8 @@ spec:
       path: ./out
       message: ${{ task.outputs['update-image'].commitMessage }}
   # Push the changes to the Git repository.
-  - uses: git-push
+  - if: ${{ status('commit') != 'Skipped' }}
+    uses: git-push
     as: push
     config:
       path: ./out
