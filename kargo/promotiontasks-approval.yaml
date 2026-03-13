@@ -12,6 +12,7 @@ spec:
   - name: image
     value: ghcr.io/scott-hpe/guestbook
   steps:
+
   # Clone the Git repository that contains the Kustomize configuration
   # to the ./src directory, and the environment configuration to ./out.
   - uses: git-clone
@@ -24,6 +25,7 @@ spec:
         path: ./out
         # Create the branch if it does not exist.
         create: true
+
   # Following a "rendered branch" pattern, we delete all files in the
   # ./out directory to ensure that we only have the files that are
   # rendered from the Kustomize configuration in the ./src directory
@@ -31,6 +33,7 @@ spec:
   - uses: git-clear
     config:
       path: ./out
+
   # Update the image in the Kustomize configuration located at ./src/env/<stage>
   # in the repository.
   - uses: kustomize-set-image
@@ -40,18 +43,21 @@ spec:
       images:
       - image: ${{ vars.image }}
         tag: ${{ imageFrom(vars.image).Tag}}
+
   # Build the Kustomize configuration in the ./src directory using the env/<stage>
   # overlay to the ./out directory.
   - uses: kustomize-build
     config:
       path: ./src/env/${{ ctx.stage }}
       outPath: ./out
+
   # Commit the changes to the Git repository.
   - uses: git-commit
     as: commit
     config:
       path: ./out
       message: ${{ task.outputs['update-image'].commitMessage }}
+
   # Push the changes to the Git repository.
   - if: ${{ status('commit') != 'Skipped' }}
     uses: git-push
@@ -59,6 +65,8 @@ spec:
     config:
       path: ./out
       generateTargetBranch: true
+
+  # If new changes were pushed, open a PR for approval
   - if: ${{ status('commit') != 'Skipped' }}
     uses: git-open-pr
     as: open-pr
@@ -67,14 +75,18 @@ spec:
       createTargetBranch: true
       sourceBranch: ${{ task.outputs.push.branch }}
       targetBranch: env/${{ ctx.stage }}
+
+  # If new changes were pushed, watch the PR for approval / close
   - if: ${{ status('commit') != 'Skipped' }}
     uses: git-wait-for-pr
     as: wait-for-pr
     config:
       repoURL: ${{ vars.repoURL }}
       prNumber: ${{ task.outputs['open-pr'].pr.id }}
+
   # Request a sync of the ArgoCD Application to apply the changes from the
-  # commit.
+  # PR commit. Note that if the PR commit never happened, then it should be
+  # from last commit on the environment
   - if: ${{ status('commit') != 'Skipped' }}
     uses: argocd-update
     config:
