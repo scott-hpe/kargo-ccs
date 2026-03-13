@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - ../../base
 
-namespace: guestbook-polaris
+namespace: ccs-guestbook-polaris

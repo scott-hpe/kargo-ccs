@@ -1,7 +1,7 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Warehouse
 metadata:
-  name: guestbook
+  name: ccs-guestbook
   namespace: kargo-ccs
 spec:
   subscriptions:

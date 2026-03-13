@@ -24,20 +24,13 @@ multiple Stages.
 
 ## Instructions
 
-1. Fork this repo, then clone it locally (from your fork).
-2. Run the `personalize.sh` to customize the manifests to use your GitHub
-   username and Argo CD destination:
+1. Stand up a KIND cluster with the `kargo-quickstart-kind.sh`
 
    ```shell
-   ./personalize.sh
+   ./kargo-quickstart-kind.sh
    ```
-3. `git commit` the personalized changes:
-
-   ```shell
-   git commit -a -m "personalize manifests"
-   git push
-   ```
-4. Create a guestbook container image repository in your GitHub account. 
+   
+2. Create a guestbook container image repository in your GitHub account. 
 
    The easiest way to create a new ghcr.io image repository, is by retagging and
    pushing an existing image with your GitHub username:
@@ -51,7 +44,7 @@ multiple Stages.
    You will now have a `guestbook` container image repository. e.g.:
    https://github.com/yourgithubusername/guestbook/pkgs/container/guestbook
 
-5. Change guestbook container image repository to public.
+3. Change guestbook container image repository to public.
 
    In the GitHub UI, navigate to the "guestbook" container repository, Package 
    settings, and change the visibility of the package to public. This will allow
@@ -60,47 +53,49 @@ multiple Stages.
 
    ![change-package-visibility](docs/change-package-visibility.png)
 
-6. Download and install the latest CLI from [Kargo Releases](https://github.com/akuity/kargo/releases) and Argo CD:
+
+4. Login to Kargo and Argo CD:
 
    ```shell
-   ./download-cli.sh /usr/local/bin/kargo
+   kargo login http://localhost:31081 --admin 
+   argocd login --username admin --insecure localhost:31080
    ```
 
-7. Login to Kargo and Argo CD:
+5. Create the Argo CD `guestbook` Project and Applications
 
    ```shell
-   kargo login https://<kargo-url> --admin
-   argocd login <argocd-hostname>
-   ```
-
-8. Create the Argo CD `guestbook` Project and Applications
-
-   ```shell
-   argocd proj create -f ./argocd/appproj.yaml
+   argocd project create -f ./argocd/appproj.yaml
    argocd appset create ./argocd/appset.yaml
    ```
 
-9. Create the Kargo resources
+6. Create the Kargo resources
 
    ```shell
    kargo apply -f ./kargo
    ```
 
-10. Add git repository credentials to Kargo (replace `<yourgithubusername>`
-    with your username).
+7. Add git repository credentials to Kargo (replace `<yourgithubusername>`
+    with your username). Token scopes are `delete:packages`, `repo`, `write:packages`.
 
     ```shell
-    kargo create credentials github-creds \
-      --project kargo-advanced \
+    kargo create repo-credentials github-creds \
+      --project=kargo-ccs \
       --git \
       --username <yourgithubusername> \
-      --repo-url https://github.com/<yourgithubusername>/kargo-advanced.git
+      --repo-url=https://github.com/<yourgithubusername>/kargo-ccs.git
     ```
 
     As part of the promotion process, Kargo requires privileges to commit changes
     to your Git repository. Ensure that the given token has these privileges.
 
-11. Promote the image!
+8. Vist the Kargo and ArgoCD Dashboards
+   
+   ```
+   kargo: http://localhost:31081
+   argocd: http://localhost:31080
+   ```
+   
+8. Promote the image!
 
     You now have a Kargo Pipeline which promotes images from the guestbook
     container image repository, through a multi-stage deploy pipeline.

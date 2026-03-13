@@ -67,7 +67,7 @@ spec:
   - uses: argocd-update
     config:
       apps:
-      - name: guestbook-${{ ctx.stage }}
+      - name: ccs-guestbook-${{ ctx.stage }}
         sources:
         - repoURL: ${{ vars.repoURL }}
           desiredRevision: ${{ task.outputs['commit'].commit }}

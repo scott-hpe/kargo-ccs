@@ -9,7 +9,7 @@ spec:
   requestedFreight:
     - origin:
         kind: Warehouse
-        name: guestbook
+        name: ccs-guestbook
       sources:
         stages:
           - polaris
