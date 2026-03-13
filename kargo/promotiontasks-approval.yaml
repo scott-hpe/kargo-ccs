@@ -11,6 +11,8 @@ spec:
     value: main
   - name: image
     value: ghcr.io/scott-hpe/guestbook
+  - name: cluster
+    value: ${{ ctx.stage }}
   steps:
 
   # Clone the Git repository that contains the Kustomize configuration
@@ -21,7 +23,7 @@ spec:
       checkout:
       - commit: ${{ commitFrom(vars.repoURL).ID }}
         path: ./src
-      - branch: env/${{ ctx.stage }}
+      - branch: env/${{ vars.cluster }}
         path: ./out
         # Create the branch if it does not exist.
         create: true
@@ -39,7 +41,7 @@ spec:
   - uses: kustomize-set-image
     as: update-image
     config:
-      path: ./src/env/${{ ctx.stage }}
+      path: ./src/env/${{ vars.cluster }}
       images:
       - image: ${{ vars.image }}
         tag: ${{ imageFrom(vars.image).Tag}}
@@ -48,7 +50,7 @@ spec:
   # overlay to the ./out directory.
   - uses: kustomize-build
     config:
-      path: ./src/env/${{ ctx.stage }}
+      path: ./src/env/${{ vars.cluster }}
       outPath: ./out
 
   # Commit the changes to the Git repository.
@@ -74,7 +76,7 @@ spec:
       repoURL: ${{ vars.repoURL }}
       createTargetBranch: true
       sourceBranch: ${{ task.outputs.push.branch }}
-      targetBranch: env/${{ ctx.stage }}
+      targetBranch: env/${{ vars.cluster }}
 
   # If new changes were pushed, watch the PR for approval / close
   - if: ${{ status('commit') != 'Skipped' }}
@@ -91,7 +93,7 @@ spec:
     uses: argocd-update
     config:
       apps:
-      - name: ccs-guestbook-${{ ctx.stage }}
+      - name: ccs-guestbook-${{ vars.cluster }}
         sources:
         - repoURL: ${{ vars.repoURL }}
           desiredRevision: ${{ task.outputs['wait-for-pr'].commit }}

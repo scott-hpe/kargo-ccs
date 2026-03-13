@@ -8,13 +8,12 @@ metadata:
 spec:
   promotionTemplate:
     spec:
+      vars:
+        - name: cluster
+          value: "mira-${{ sharedConfigMap('cluster-region-state')['mira-primary'] }}"
       steps:
         - task:
             name: promote
-          vars:
-            - name: cluster
-              value: "${{ sharedConfigMap('cluster-region-state').mira-primary }}"
-
   requestedFreight:
     - origin:
         kind: Warehouse
