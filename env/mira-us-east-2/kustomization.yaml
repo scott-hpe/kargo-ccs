@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - ../../base
 
-namespace: guestbook-mira-us-east-2
+namespace: ccs-guestbook-mira-us-east-2

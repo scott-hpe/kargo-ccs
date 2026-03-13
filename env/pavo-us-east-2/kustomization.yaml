@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - ../../base
 
-namespace: guestbook-pavo-us-east-2
+namespace: ccs-guestbook-pavo-us-east-2

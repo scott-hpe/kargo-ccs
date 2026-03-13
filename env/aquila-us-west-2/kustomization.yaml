@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - ../../base
 
-namespace: guestbook-aquila-us-west-2
+namespace: ccs-guestbook-aquila-us-west-2
