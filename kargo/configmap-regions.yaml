@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-region-state
+  namespace: kargo-shared-resources
+data:
+  aquila-primary: us-west-2
+  aquila-secondary: us-east-2
+  mira-primary: us-west-2
+  mira-secondary: us-east-2
+  pavo-primary: us-west-2
+  pavo-secondary: us-east-2
