@@ -12,3 +12,6 @@ spec:
   - git:
       repoURL: https://github.com/scott-hpe/kargo-ccs.git
       branch: main
+      includePaths:
+        - base/
+        - env/
