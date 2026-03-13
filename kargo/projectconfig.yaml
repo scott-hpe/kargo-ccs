@@ -1,0 +1,13 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: ProjectConfig
+metadata:
+  name: kargo-ccs
+  namespace: kargo-ccs
+spec:
+  promotionPolicies:
+    - autoPromotionEnabled: true
+      stageSelector:
+        name: pavo-secondary
+    - autoPromotionEnabled: true
+      stageSelector:
+        name: aquila-secondary

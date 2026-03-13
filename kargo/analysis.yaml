@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
   name: pokemon-xp
-  namespace: kargo-advanced
+  namespace: kargo-ccs
 spec:
   args:
   - name: pokemon

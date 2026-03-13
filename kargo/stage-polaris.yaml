@@ -1,0 +1,19 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  annotations:
+    kargo.akuity.io/color: red
+  name: polaris
+  namespace: kargo-ccs
+spec:
+  promotionTemplate:
+    spec:
+      steps:
+        - task:
+            name: promote
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: guestbook
+      sources:
+        direct: true

@@ -2,11 +2,11 @@ apiVersion: kargo.akuity.io/v1alpha1
 kind: PromotionTask
 metadata:
   name: promote
-  namespace: kargo-advanced
+  namespace: kargo-ccs
 spec:
   vars:
   - name: repoURL
-    value: https://github.com/scott-hpe/kargo-advanced.git
+    value: https://github.com/scott-hpe/kargo-ccs.git
   - name: branch
     value: main
   - name: image

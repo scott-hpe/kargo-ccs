@@ -1,0 +1,23 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  annotations:
+    kargo.akuity.io/color: green
+  name: aquila-secondary
+  namespace: kargo-ccs
+spec:
+  promotionTemplate:
+    spec:
+      steps:
+        - task:
+            name: promote
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: guestbook
+      sources:
+        autoPromotionOptions:
+          selectionPolicy: MatchUpstream
+        requiredSoakTime: 30m0s
+        stages:
+          - aquila
