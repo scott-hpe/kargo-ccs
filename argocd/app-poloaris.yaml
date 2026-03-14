@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-ccs:polaris
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    ccs-cluster: polaris
+  name: ccs-guestbook-polaris
+spec:
+  destination:
+    namespace: ccs-guestbook-polaris
+    server: https://kubernetes.default.svc
+  project: kargo-ccs
+  source:
+    path: ./
+    repoURL: https://github.com/scott-hpe/kargo-ccs.git
+    targetRevision: env/polaris

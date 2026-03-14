@@ -13,6 +13,8 @@ spec:
   template:
     metadata:
       name: ccs-guestbook-{{path.basename}}
+      labels:
+        ccs-cluster: "{{path.basename}}"
       annotations:
         kargo.akuity.io/authorized-stage: kargo-ccs:{{path.basename}}
     spec:

@@ -8,6 +8,9 @@ metadata:
 spec:
   promotionTemplate:
     spec:
+      vars:
+        - name: cluster
+          value: "mira-${{ sharedConfigMap('cluster-region-state')['mira-secondary'] }}"
       steps:
         - task:
             name: promote-approve

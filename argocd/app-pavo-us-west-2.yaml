@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-ccs:pavo-us-west-2
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    ccs-cluster: pavo-us-west-2
+  name: ccs-guestbook-pavo-us-west-2
+spec:
+  destination:
+    namespace: ccs-guestbook-pavo-us-west-2
+    server: https://kubernetes.default.svc
+  project: kargo-ccs
+  source:
+    path: ./
+    repoURL: https://github.com/scott-hpe/kargo-ccs.git
+    targetRevision: env/pavo-us-west-2
