@@ -21,9 +21,9 @@ NAMESPACE="argocd"
 ANNOTATION_KEY="kargo.akuity.io/authorized-stage"
 RESOURCE_TYPE="application"
 
-echo "Cluster label  : ${CLUSTER_LABEL}"
-echo "Cluster prefix : ${CLUSTER_PREFIX}"
-echo "Target suffix  : ${TARGET_ANNOTATION}"
+echo "Cluster label   : ${CLUSTER_LABEL}"
+echo "Cluster prefix  : ${CLUSTER_PREFIX}"
+echo "Target suffix   : ${TARGET_ANNOTATION}"
 echo "Secondary suffix: ${SECONDARY_ANNOTATION}"
 echo ""
 
@@ -57,6 +57,12 @@ for TRIPLE in "${RESOURCE_TRIPLES[@]}"; do
   REMAINDER="${TRIPLE#*|}"
   RESOURCE_LABEL="${REMAINDER%%|*}"                    # e.g. aquila-us-west-2
   EXISTING_ANNOTATION="${REMAINDER#*|}"                # e.g. kargo-ccs:aquila-primary
+
+  # Safety check: skip resource if annotation key does not exist
+  if [[ -z "${EXISTING_ANNOTATION}" ]]; then
+    echo "SKIPPING ${RESOURCE_TYPE}/${RESOURCE_NAME} (ccs-cluster=${RESOURCE_LABEL}) -> annotation '${ANNOTATION_KEY}' does not exist on this resource."
+    continue
+  fi
 
   # Extract the value prefix before the colon (e.g. "kargo-ccs")
   ANNOTATION_VALUE_PREFIX="${EXISTING_ANNOTATION%%:*}"
