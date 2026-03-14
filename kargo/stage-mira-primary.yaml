@@ -13,7 +13,7 @@ spec:
           value: "mira-${{ sharedConfigMap('cluster-region-state')['mira-primary'] }}"
       steps:
         - task:
-            name: promote
+            name: promote-approve
   requestedFreight:
     - origin:
         kind: Warehouse
