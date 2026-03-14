@@ -138,6 +138,8 @@ helm install argo-rollouts argo-rollouts \
 # Install Kargo (password: admin)
 # ============================================================
 
+KARGO_LOG_LEVEL=DEBUG
+
 helm install kargo \
   oci://ghcr.io/akuity/kargo-charts/kargo \
   --namespace kargo \
@@ -158,6 +160,12 @@ helm install kargo \
   --set rbac.installClusterRoleBindings=true \
   --set api.rollouts.integrationEnabled=true \
   --set controller.rollouts.integrationEnabled=true \
+  --set api.logLevel=$KARGO_LOG_LEVEL \
+  --set controller.logLevel=$KARGO_LOG_LEVEL \
+  --set garbageCollector.logLevel=$KARGO_LOG_LEVEL \
+  --set externalWebhooksServer.logLevel=$KARGO_LOG_LEVEL \
+  --set managementController.logLevel=$KARGO_LOG_LEVEL \
+  --set webhooksServer.logLevel=$KARGO_LOG_LEVEL \
   --wait
 
 # ============================================================
