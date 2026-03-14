@@ -8,6 +8,9 @@ metadata:
 spec:
   promotionTemplate:
     spec:
+      vars:
+        - name: cluster
+          value: "pavo-${{ sharedConfigMap('cluster-region-state')[ctx.stage] }}"
       steps:
         - task:
             name: promote
@@ -20,4 +23,4 @@ spec:
           selectionPolicy: MatchUpstream
         requiredSoakTime: 30m0s
         stages:
-          - pavo
+          - pavo-primary

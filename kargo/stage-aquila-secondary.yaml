@@ -8,6 +8,9 @@ metadata:
 spec:
   promotionTemplate:
     spec:
+      vars:
+        - name: cluster
+          value: "aquila-${{ sharedConfigMap('cluster-region-state')[ctx.stage] }}"
       steps:
         - task:
             name: promote
@@ -18,6 +21,6 @@ spec:
       sources:
         autoPromotionOptions:
           selectionPolicy: MatchUpstream
-        requiredSoakTime: 30m0s
+        requiredSoakTime: 60m0s
         stages:
-          - aquila
+          - aquila-primary

@@ -8,6 +8,9 @@ metadata:
 spec:
   promotionTemplate:
     spec:
+      vars:
+        - name: cluster
+          value: "aquila-${{ sharedConfigMap('cluster-region-state')[ctx.stage] }}"
       steps:
         - task:
             name: promote-approve
@@ -16,5 +19,6 @@ spec:
         kind: Warehouse
         name: ccs-guestbook
       sources:
+        requiredSoakTime: 30m0s
         stages:
-          - aquila
+          - pavo-primary
