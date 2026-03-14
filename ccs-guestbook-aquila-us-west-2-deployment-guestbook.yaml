@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook
+  namespace: ccs-guestbook-aquila-us-west-2
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: guestbook
+  template:
+    metadata:
+      labels:
+        app: guestbook
+    spec:
+      containers:
+      - env:
+        - name: FOO
+          value: enabled
+        image: ghcr.io/scott-hpe/guestbook:v0.0.150
+        name: guestbook
+        ports:
+        - containerPort: 3000
+          name: http
