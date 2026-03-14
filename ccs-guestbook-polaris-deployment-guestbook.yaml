@@ -18,7 +18,7 @@ spec:
       - env:
         - name: FOO
           value: enabled
-        image: ghcr.io/scott-hpe/guestbook:v0.0.150
+        image: ghcr.io/scott-hpe/guestbook:v0.0.151
         name: guestbook
         ports:
         - containerPort: 3000
