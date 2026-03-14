@@ -2,9 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    kargo.akuity.io/authorized-stage: kargo-ccs:aquila-us-west-2
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    kargo.akuity.io/authorized-stage: kargo-ccs:aquila-primary
   labels:
     ccs-cluster: aquila-us-west-2
   name: ccs-guestbook-aquila-us-west-2

@@ -3,8 +3,6 @@ kind: Application
 metadata:
   annotations:
     kargo.akuity.io/authorized-stage: kargo-ccs:polaris
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
   labels:
     ccs-cluster: polaris
   name: ccs-guestbook-polaris

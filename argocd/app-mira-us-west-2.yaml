@@ -2,9 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    kargo.akuity.io/authorized-stage: kargo-ccs:mira-us-west-2
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    kargo.akuity.io/authorized-stage: kargo-ccs:mira-primary
   labels:
     ccs-cluster: mira-us-west-2
   name: ccs-guestbook-mira-us-west-2

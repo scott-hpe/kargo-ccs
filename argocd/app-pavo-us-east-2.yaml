@@ -2,9 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    kargo.akuity.io/authorized-stage: kargo-ccs:pavo-us-east-2
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    kargo.akuity.io/authorized-stage: kargo-ccs:pavo-secondary
   labels:
     ccs-cluster: pavo-us-east-2
   name: ccs-guestbook-pavo-us-east-2

@@ -65,7 +65,13 @@ multiple Stages.
 
    ```shell
    argocd project create -f ./argocd/appproj.yaml
-   argocd appset create ./argocd/appset.yaml
+   argocd app create --validate=false --file ./argocd/app-aquila-us-east-2.yaml
+   argocd app create --validate=false --file ./argocd/app-aquila-us-west-2.yaml
+   argocd app create --validate=false --file ./argocd/app-mira-us-east-2.yaml
+   argocd app create --validate=false --file ./argocd/app-mira-us-west-2.yaml
+   argocd app create --validate=false --file ./argocd/app-pavo-us-east-2.yaml
+   argocd app create --validate=false --file ./argocd/app-pavo-us-west-2.yaml
+   argocd app create --validate=false --file ./argocd/app-poloaris.yaml
    ```
 
 6. Create the Kargo resources
