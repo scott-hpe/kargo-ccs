@@ -65,6 +65,8 @@ multiple Stages.
 
    ```shell
    argocd project create -f ./argocd/appproj.yaml
+   ```
+   ```shell
    argocd app create --validate=false --file ./argocd/app-aquila-us-east-2.yaml
    argocd app create --validate=false --file ./argocd/app-aquila-us-west-2.yaml
    argocd app create --validate=false --file ./argocd/app-mira-us-east-2.yaml
