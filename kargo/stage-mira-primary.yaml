@@ -10,14 +10,14 @@ spec:
     spec:
       vars:
         - name: cluster
-          value: "mira-${{ sharedConfigMap('cluster-region-state')['mira-primary'] }}"
+          value: "mira-${{ sharedConfigMap('cluster-region-state')[ctx.stage] }}"
       steps:
         - task:
-            name: promote-approve
+            name: promote
   requestedFreight:
     - origin:
         kind: Warehouse
         name: ccs-guestbook
       sources:
         stages:
-          - mira
+          - polaris

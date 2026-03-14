@@ -7,6 +7,9 @@ spec:
   promotionPolicies:
     - autoPromotionEnabled: true
       stageSelector:
+        name: mira-secondary
+    - autoPromotionEnabled: true
+      stageSelector:
         name: pavo-secondary
     - autoPromotionEnabled: true
       stageSelector:
